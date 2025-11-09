@@ -1,0 +1,68 @@
+# Default values for nginx-site Helm chart
+# This file contains values for replica count, image, service, and resources
+
+replicaCount: 2
+
+image:
+  repository: 559050211335.dkr.ecr.ap-south-1.amazonaws.com/nginx-app
+  tag: "latest"               # Jenkins will later update this automatically
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []          # Keep empty unless using private registry with credentials
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+#  fsGroup: 2000
+
+securityContext: {}
+#  capabilities:
+#    drop:
+#    - ALL
+#  readOnlyRootFilesystem: true
+#  runAsNonRoot: true
+#  runAsUser: 1000
+
+service:
+  type: LoadBalancer           # So AWS exposes this via an ELB
+  port: 80                     # HTTP port for NGINX
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+# Example for resource limits:
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
