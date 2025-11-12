@@ -5,7 +5,7 @@ replicaCount: 2
 
 image:
   repository: 559050211335.dkr.ecr.ap-south-1.amazonaws.com/nginx-app
-  tag: 20251109141904
+  tag: 20251112114121
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []          # Keep empty unless using private registry with credentials
